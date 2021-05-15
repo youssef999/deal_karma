@@ -2,12 +2,15 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire99/adsManger.dart';
+import 'package:fire99/colorr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_admob/flutter_native_admob.dart';
 import 'package:flutter_native_admob/native_admob_controller.dart';
+import 'colorr.dart';
+import 'colorr.dart';
 import 'login.dart';
 
 
@@ -155,54 +158,29 @@ class _PostsScreenState extends State<profile> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(41, 30, 83, 1),
       appBar: AppBar(
-          backgroundColor: Colors.indigo[900],
-          iconTheme: IconThemeData(color: Colors.red),
-          title:Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    // Colors.white,
-                    Colors.indigo[900],
-                    //Colors.lightBlueAccent,
-                    Colors.indigo[900],
-                    // Colors.lightBlueAccent,
-                    //Colors.white,
-                  ])),
-              height:30,
-              child: Center(
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width:40,
-                      ),
-                      /* Container(
+          backgroundColor:btnforGroundColr,
+          title:(Center(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width:40,
+                  ),
+                  /* Container(
                  width:80,
                  child:Image.asset('assets/l1.jfif')
                ),*/
-                      Text( "Coin",style:TextStyle(color:Colors.red,fontWeight:FontWeight.bold,fontSize:23)),
-                      Text( "S",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:23)),
-                      //  Text("  Broker",style:TextStyle(color:Colors.lightBlue,fontWeight:FontWeight.bold,fontSize:21)),
-                    ],
-                  ))
+                  Text(  "Deal",style:TextStyle(color:kPrimaryLightColor,fontWeight:FontWeight.bold,fontSize:23)),
+                  Text( "K",style:TextStyle(color:kPrimaryColor,fontWeight:FontWeight.bold,fontSize:23)),
+                  Text( "arma",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:23)),
+
+                  //  Text("  Broker",style:TextStyle(color:Colors.lightBlue,fontWeight:FontWeight.bold,fontSize:21)),
+                ],
+              ))
           ),
-          //backgroundColor: Colors.lightBlueAccent,
           actions: <Widget>[
             SizedBox(
-              height:10,
+              width:20,
             ),
-
-
-            IconButton(
-                color:Colors.red[600],
-                icon: Icon(Icons.exit_to_app,size:32,),
-                onPressed: () async {
-                  intersitialAd.show();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return LoginScreen();
-                      }));
-
-                })
 
           ]
       ),
@@ -212,7 +190,18 @@ class _PostsScreenState extends State<profile> {
 
       body:
       Container(
-        color: Color.fromRGBO(41, 30, 83, 1),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              btnforGroundColr,
+              btnbackGroundColr
+            ],
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+        ),
+            //.fromRGBO(41, 30, 83, 1),
         child: Column(
             children: [
               /* Container(
@@ -257,7 +246,17 @@ class _PostsScreenState extends State<profile> {
                                 // (profile.imgUrl == null) ? AssetImage('images/user-avatar.png') : NetworkImage(profile.imgUrl)
                                 return Flexible(
                                   child: Container(
-                                    color: Color.fromRGBO(41, 30, 83, 1),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          btnforGroundColr,
+                                          btnbackGroundColr
+                                        ],
+                                      ),
+                                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                                    ),
                                     child: Column(
                                       children: <Widget>[
 
@@ -267,7 +266,7 @@ class _PostsScreenState extends State<profile> {
                                                 width:40
                                             ),
                                             Container(
-                                                child:Text('Welcome ' +posts.data()['username']+' to asm el app',style:TextStyle(color:Colors.orange,fontSize:17,fontWeight:FontWeight.w600,fontStyle:FontStyle.italic),)
+                                                child:Text('Welcome ' +posts.data()['username']+' to DealKarma ',style:TextStyle(color:Colors.black,fontSize:17,fontWeight:FontWeight.w600,fontStyle:FontStyle.italic),)
                                             ),
                                             SizedBox(
                                                 width:20
@@ -292,13 +291,13 @@ class _PostsScreenState extends State<profile> {
                                                   begin: Alignment.topCenter,
                                                   end: Alignment.bottomCenter,
                                                   colors: [
-                                                    Colors.red,
-                                                    Colors.deepOrange[300]
+                                                    Colors.lightBlue,
+                                                    Colors.lightBlue[300],
                                                   ],
                                                 ),
                                                 borderRadius: BorderRadius.all(Radius.circular(70)),
                                               ),
-                                              child:Center(child: Text( posts.data()['username'][0],style:TextStyle(color:Colors.white,fontSize:17,fontWeight:FontWeight.w900),)),
+                                              child:Center(child: Text( posts.data()['username'][0],style:TextStyle(color:Colors.white,fontSize:22,fontWeight:FontWeight.w900),)),
                                             ),
                                             SizedBox(
                                               width:80,
@@ -307,7 +306,7 @@ class _PostsScreenState extends State<profile> {
                                               children: [
 
                                                 Container(
-                                                    child:Text( posts.data()['coins'],style:TextStyle(color:Colors.red,fontSize:17,fontWeight:FontWeight.w900),)
+                                                    child:Text( posts.data()['coins'],style:TextStyle(color:Colors.cyanAccent,fontSize:22,fontWeight:FontWeight.w900),)
                                                 ),
                                                 SizedBox(
                                                   height:5,
@@ -336,7 +335,7 @@ class _PostsScreenState extends State<profile> {
                                                       end: Alignment.bottomCenter,
                                                       colors: [
                                                         Colors.purpleAccent[200],
-                                                        Colors.teal
+                                                        Colors.blue
                                                       ],
                                                     ),
                                                     borderRadius: BorderRadius.all(Radius.circular(25)),

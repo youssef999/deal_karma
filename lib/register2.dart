@@ -76,7 +76,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
             child: Image.asset('assets/s12.png')),
         // Text('Registeration'),
         centerTitle: true,
-        backgroundColor: Colors.indigo[900],
+        backgroundColor: Colors.deepPurpleAccent,
         leading: Icon(Icons.app_registration),
         //elevation:0,
         actions: <Widget> [
@@ -94,16 +94,56 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
       ),
 
       body: Container(
-        color: Color.fromRGBO(41, 30, 83, 1),
+        color: Colors.white,
+        //Color.fromRGBO(41, 30, 83, 1),
         padding: EdgeInsets.symmetric(vertical: 16.0,horizontal: 16.0),
         child: Form(
           key: _formkey,
           child: ListView(
             children: <Widget>[
-              //  userImagePicker(_pickedImage),
-              SizedBox(
-                height:20,
+             SizedBox(
+                height:5
               ),
+              Row(
+                  children:<Widget>[
+                    Container(
+                      width:120,
+                      height:50,
+                      decoration: BoxDecoration(
+                          color:Colors.white,
+                          // color:Colors.lightBlueAccent,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(50),
+                            topLeft:Radius.circular(30),
+                            topRight:Radius.circular(30),
+                            bottomRight: Radius.circular(50),
+                          )
+                      ),
+                      child:Center(child: Text('Sign up',style:TextStyle(color:Colors.purple,fontSize:25,fontWeight:FontWeight.w900),)),
+                    ),
+                  ]
+              ),
+              Container(
+                width:400,
+                height:190,
+                color:Colors.lightBlueAccent[300],
+                /* decoration: BoxDecoration(
+                   color:Colors.white,
+                   // color:Colors.lightBlueAccent,
+                   borderRadius: BorderRadius.only(
+                     bottomLeft: Radius.circular(50),
+                     topLeft:Radius.circular(30),
+                     topRight:Radius.circular(30),
+                     bottomRight: Radius.circular(50),
+                   )
+               ),*/
+                child:Image.asset('assets/signup.png'),
+              ),
+              SizedBox(
+                  height:10
+              ),
+
+
               Container(
                 decoration: BoxDecoration(
                     color:Colors.white,
@@ -125,23 +165,35 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                         child:Image.asset('assets/l1.jfif'),
                       ),*/
                     SizedBox(
-                        height:30
+                        height:7
                     ),
 
                     TextFormField(
                       controller: _namecontroller,
                       autocorrect:true,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-
-                        labelText: " Name ",
-                        enabledBorder: OutlineInputBorder
-                          (borderSide: BorderSide(color: Colors.red)),
                         border:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white,),
-                          borderRadius: BorderRadius.circular(16.0),
+                          borderSide: const BorderSide(
+                              color: Colors.purpleAccent,
+                              width: 2.0),
+                          borderRadius: BorderRadius.circular(30.0),
                         ),
+                        //fillColor:Colors.white,
+                        filled: true,
+                        hintText: "Your Name",hintStyle:TextStyle(color:Colors.black45,),
+                        prefixIcon: Icon(Icons.person,color:Colors.purple),
                       ),
+                      // decoration: InputDecoration(
+                      //   prefixIcon: Icon(Icons.person),
+                      //
+                      //   labelText: " Name ",
+                      //   enabledBorder: OutlineInputBorder
+                      //     (borderSide: BorderSide(color: Colors.red)),
+                      //   border:OutlineInputBorder(
+                      //     borderSide: const BorderSide(color: Colors.white,),
+                      //     borderRadius: BorderRadius.circular(16.0),
+                      //   ),
+                      // ),
                       validator: (value){
                         if(value.isEmpty){
                           return 'Fill Name';
@@ -160,6 +212,18 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                       controller: _emailcontroller,
                       textCapitalization:TextCapitalization.words,
                       decoration: InputDecoration(
+                        border:OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Colors.purpleAccent,
+                              width: 2.0),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        //fillColor:Colors.white,
+                        filled: true,
+                        hintText: "Your Email",hintStyle:TextStyle(color:Colors.black45,),
+                        prefixIcon: Icon(Icons.email,color:Colors.purple),
+                      ),
+                      /*decoration: InputDecoration(
                         prefixIcon: Icon(Icons.email),
                         labelText:  "  Email  ",
                         enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
@@ -167,7 +231,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                           borderSide: const BorderSide(color: Colors.white, width: 2.0),
                           borderRadius: BorderRadius.circular(25.0),
                         ),
-                      ),
+                      ),*/
                       validator: (value){
                         if(value.isEmpty){
                           return 'Fill Email ';
@@ -180,14 +244,27 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                     TextFormField(
                       controller: _passwordcontroller,
                       decoration: InputDecoration(
+                        border:OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Colors.purpleAccent,
+                              width: 2.0),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        //fillColor:Colors.white,
+                        filled: true,
+                        hintText: "Password",hintStyle:TextStyle(color:Colors.black45,),
+                        prefixIcon: Icon(Icons.person,color:Colors.purple),
+                      ),
+                     /* decoration: InputDecoration(
                         prefixIcon: Icon(Icons.lock),
                         labelText: "  Password ",
                         enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
                         border:OutlineInputBorder(
                           borderSide: const BorderSide(color: Colors.white, width: 2.0),
                           borderRadius: BorderRadius.circular(25.0),
+
                         ),
-                      ),
+                      ),*/
                       validator: (value){
                         if(value.isEmpty){
                           return 'Fill Password';
@@ -195,7 +272,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                       },
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 5,
                     ),
           /*          Container(
                       padding: EdgeInsets.only(left:25,right:25),
@@ -236,58 +313,59 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                       ),
 
                     ),*/
-                    SizedBox(
-                      height: 20,
-                    ),
 
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(29)),
-                      color: Colors.indigo[900],
-                      child: Text( " Submit ",style: TextStyle(color: Colors.white,fontSize:21),),
-                      onPressed: () async{
-                        if(_formkey.currentState.validate()){
-                          var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailcontroller.text, password: _passwordcontroller.text);
-                          if(result != null)
-                          {
-                            Firestore.instance.collection('users').document(result.user.uid).setData({
-                              'username':_namecontroller.text,
-                              'email':_emailcontroller.text,
-                              'coins':"0",
 
-                            });
-                            showDialog(
-                                context: context,
-                                builder: (_) =>
-                                new AlertDialog(
-                                  title: new Text(" Done "),
-                                  content: new Text("Now you have an account "),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text(' OK '),
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) {
-                                            return LoginScreen();
-                                          }),
-                                        );
+                    Container(
+                      width:160,
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(29)),
+                        color: Colors.deepPurpleAccent,
+                        child: Text( " Submit ",style: TextStyle(color: Colors.white,fontSize:21),),
+                        onPressed: () async{
+                          if(_formkey.currentState.validate()){
+                            var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailcontroller.text, password: _passwordcontroller.text);
+                            if(result != null)
+                            {
+                              Firestore.instance.collection('users').document(result.user.uid).setData({
+                                'username':_namecontroller.text,
+                                'email':_emailcontroller.text,
+                                'coins':"0",
 
-                                      },
-                                    )
-                                  ],
-                                ));
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return LoginScreen();
-                              }),
-                            );
+                              });
+                              showDialog(
+                                  context: context,
+                                  builder: (_) =>
+                                  new AlertDialog(
+                                    title: new Text(" Done "),
+                                    content: new Text("Now you have an account "),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text(' OK '),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) {
+                                              return LoginScreen();
+                                            }),
+                                          );
 
-                          }else{
-                            print('please try later');
+                                        },
+                                      )
+                                    ],
+                                  ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return LoginScreen();
+                                }),
+                              );
+
+                            }else{
+                              print('please try later');
+                            }
                           }
-                        }
-                      },
+                        },
+                      ),
                     )
 
 

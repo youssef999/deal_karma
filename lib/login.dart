@@ -3,7 +3,9 @@ import 'package:fire99/register2.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'colorr.dart';
 import 'screen.dart';
+import 'screen2.dart';
 
 class LoginScreen extends StatefulWidget{
   @override
@@ -40,16 +42,16 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
+     /* appBar: AppBar(
           backgroundColor: Colors.indigo[900],
           iconTheme: IconThemeData(color: Colors.red),
           title:Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [
-                    // Colors.white,
-                    Colors.indigo[900],
-                    //Colors.lightBlueAccent,
-                    Colors.indigo[900],
+                     Colors.white,
+
+                    Colors.lightBlueAccent,
+
                     // Colors.lightBlueAccent,
                     //Colors.white,
                   ])),
@@ -60,10 +62,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         width:40,
                       ),
-                      /* Container(
+                      *//* Container(
                  width:80,
                  child:Image.asset('assets/l1.jfif')
-               ),*/
+               ),*//*
                       Text( " Coin",style:TextStyle(color:Colors.red,fontWeight:FontWeight.bold,fontSize:23)),
                       Text( "s",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:23)),
                       //  Text("  Broker",style:TextStyle(color:Colors.lightBlue,fontWeight:FontWeight.bold,fontSize:21)),
@@ -80,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
           ]
-      ),
+      ),*/
       body:
 
       /*StreamBuilder(
@@ -107,7 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
     int len=snapshot.data.documents.length;
     return Flexible(*/
     Container(
-    color: Color.fromRGBO(41, 30, 83, 1),
+    color:Colors.white,
+    //Color.fromRGBO(41, 30, 83, 1),
     padding: EdgeInsets.all(16),
 
 
@@ -117,21 +120,63 @@ class _LoginScreenState extends State<LoginScreen> {
     key: _formkey,
     child: Column(
     children: <Widget>[
+      SizedBox(
+          height:20
+      ),
+
+       Row(
+         children:<Widget>[
+           Container(
+             width:120,
+             height:50,
+             decoration: BoxDecoration(
+                 color:Colors.white,
+                 // color:Colors.lightBlueAccent,
+                 borderRadius: BorderRadius.only(
+                   bottomLeft: Radius.circular(50),
+                   topLeft:Radius.circular(30),
+                   topRight:Radius.circular(30),
+                   bottomRight: Radius.circular(50),
+                 )
+             ),
+             child:Center(child: Text('Login',style:TextStyle(color:Colors.purple,fontSize:25,fontWeight:FontWeight.w900),)),
+           ),
+         ]
+       ),
+      Container(
+        width:400,
+        height:190,
+        color:Colors.lightBlueAccent[300],
+        /* decoration: BoxDecoration(
+                   color:Colors.white,
+                   // color:Colors.lightBlueAccent,
+                   borderRadius: BorderRadius.only(
+                     bottomLeft: Radius.circular(50),
+                     topLeft:Radius.circular(30),
+                     topRight:Radius.circular(30),
+                     bottomRight: Radius.circular(50),
+                   )
+               ),*/
+        child:Image.asset('assets/signup.png'),
+      ),
+      SizedBox(
+          height:15
+      ),
     TextFormField(/*/Email*/
     controller: _emailcontroller,
-    cursorColor:Colors.red,
-    style: TextStyle(fontSize: 18, color: Colors.red),
+    cursorColor:Colors.purple,
+    style: TextStyle(fontSize: 18, color: Colors.black),
     decoration: InputDecoration(
     border:OutlineInputBorder(
     borderSide: const BorderSide(
-    color: Colors.white,
+    color: Colors.purpleAccent,
     width: 2.0),
-    borderRadius: BorderRadius.circular(15.0),
+    borderRadius: BorderRadius.circular(30.0),
     ),
     //fillColor:Colors.white,
     filled: true,
-    hintText: "Email",hintStyle:TextStyle(color:Colors.white,),
-    prefixIcon: Icon(Icons.person,color:Colors.redAccent),
+    hintText: "Your Email",hintStyle:TextStyle(color:Colors.black45,),
+    prefixIcon: Icon(Icons.person,color:Colors.purple),
     ),
     validator: (value) {
     if(value.isEmpty){
@@ -145,23 +190,23 @@ class _LoginScreenState extends State<LoginScreen> {
     height: 20,
     ),
     TextFormField(/*Password*/
-    cursorColor:Colors.red,
+    cursorColor:Colors.purple,
 
     obscureText: true,
     controller: _passwordcontroller,
-    style: TextStyle(fontSize: 18, color: Colors.red),
+    style: TextStyle(fontSize: 18, color: Colors.black),
     decoration: InputDecoration(
     border:OutlineInputBorder(
     borderSide: const BorderSide(
-    color: Colors.white,
+    color: Colors.purpleAccent,
     width: 2.0),
-    borderRadius: BorderRadius.circular(15.0),
+    borderRadius: BorderRadius.circular(30.0),
     ),
     // fillColor: Colors.white,
     filled: true,
 
-    hintText: "Password",hintStyle:TextStyle(color:Colors.white,),
-    prefixIcon: Icon(Icons.lock,color:Colors.redAccent),
+    hintText: "Password",hintStyle:TextStyle(color:Colors.black45,),
+    prefixIcon: Icon(Icons.lock,color:Colors.purple),
     ),
     validator: (value){
     if(value.isEmpty){
@@ -170,40 +215,56 @@ class _LoginScreenState extends State<LoginScreen> {
     },
     ),
     SizedBox(
-    height: 25,
+    height: 15,
     ),
     Container(
-    width:120,
-    child: RaisedButton(
-    color: Colors.indigo[900],
-    child: Text('Login',style: TextStyle(color: Colors.white,fontSize:22),),
-    onPressed: () async {
+      width:160,
 
-    if(_formkey.currentState.validate()){
+     /* decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.purple,
+            Colors.white,
+          ],
+        ),
+        borderRadius: BorderRadius.all(Radius.circular(26)),
+      ),*/
+    child: Container(
+     // color:  Colors.purple,
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+        color:  Colors.purple,
+      child: Text('Login',style: TextStyle(color: Colors.white,fontSize:24),),
+      onPressed: () async {
 
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
+      if(_formkey.currentState.validate()){
 
-    var result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailcontroller.text, password: _passwordcontroller.text);
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp();
 
-    final user = FirebaseAuth.instance.currentUser;
-    final userData = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-    String ud=userData['username'];
-    if(result != null)
-    {
-    // pushReplacement
-    print('welcomee');
-    Navigator. pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => screen(ud)),
-    );
+      var result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _emailcontroller.text, password: _passwordcontroller.text);
 
-    }
-    else{
-    print('user not found');
-    }
-    }
-    },
+      final user = FirebaseAuth.instance.currentUser;
+      final userData = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+      String ud=userData['username'];
+      if(result != null)
+      {
+      // pushReplacement
+      print('welcomee');
+      Navigator. pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => screen2(ud)),
+      );
+
+      }
+      else{
+      print('user not found');
+      }
+      }
+      },
+      ),
     ),
     ),
     Container(
@@ -250,16 +311,16 @@ class _LoginScreenState extends State<LoginScreen> {
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
     Text(
-    "Don't have an account",style: TextStyle(
-    color:Colors.red,
+    "Don't have an account ?",style: TextStyle(
+    color:Colors.purple,
     fontSize:18,fontWeight: FontWeight.w600,fontStyle:FontStyle.italic),
     ),
     SizedBox(
     width: 10,
     ),
-    Text( "Register",style: TextStyle(
-    color:Colors.white,
-    fontSize:18,fontWeight: FontWeight.w400,fontStyle:FontStyle.italic),
+    Text( "Sign up",style: TextStyle(
+    color:Colors.black,
+    fontSize:18,fontWeight: FontWeight.w900,fontStyle:FontStyle.italic),
     ),
     ],
     ),

@@ -9,6 +9,7 @@ import 'package:flutter_native_admob/native_admob_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'adsManger.dart';
  import 'package:cloud_firestore/cloud_firestore.dart';
+import 'colorr.dart';
 import 'profile.dart';
 
 
@@ -147,46 +148,33 @@ class _screenState extends State<screen> {
   @override
    Widget build(BuildContext context) {
      return Scaffold(
-       appBar: AppBar(
-           backgroundColor: Colors.indigo[900],
-           iconTheme: IconThemeData(color: Colors.red),
-           title:Container(
-               decoration: BoxDecoration(
-                   gradient: LinearGradient(colors: [
-                     // Colors.white,
-                     Colors.indigo[900],
-                     //Colors.lightBlueAccent,
-                     Colors.indigo[900],
-                     // Colors.lightBlueAccent,
-                     //Colors.white,
-                   ])),
-               height:30,
-               child: Center(
-                   child: Row(
-                     children: [
-                       SizedBox(
-                         width:40,
-                       ),
-                       /* Container(
+         appBar: AppBar(
+             backgroundColor:btnforGroundColr,
+             title:(Center(
+                 child: Row(
+                   children: [
+                     SizedBox(
+                       width:40,
+                     ),
+                     /* Container(
                  width:80,
                  child:Image.asset('assets/l1.jfif')
                ),*/
-                       Text(  "Coin",style:TextStyle(color:Colors.red,fontWeight:FontWeight.bold,fontSize:23)),
-                       Text( "s",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:23)),
-                       //  Text("  Broker",style:TextStyle(color:Colors.lightBlue,fontWeight:FontWeight.bold,fontSize:21)),
-                     ],
-                   ))
-           ),
-           //backgroundColor: Colors.lightBlueAccent,
-           actions: <Widget>[
-             SizedBox(
-               width:20,
+                     Text(  "Deal",style:TextStyle(color:kPrimaryLightColor,fontWeight:FontWeight.bold,fontSize:23)),
+                     Text( "K",style:TextStyle(color:kPrimaryColor,fontWeight:FontWeight.bold,fontSize:23)),
+                     Text( "arma",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:23)),
+
+                     //  Text("  Broker",style:TextStyle(color:Colors.lightBlue,fontWeight:FontWeight.bold,fontSize:21)),
+                   ],
+                 ))
              ),
+             actions: <Widget>[
+               SizedBox(
+                 width:20,
+               ),
 
-
-
-           ]
-       ),
+             ]
+         ),
        body:
          StreamBuilder(
     stream:
@@ -382,7 +370,7 @@ class _screenState extends State<screen> {
                               ),
                               borderRadius: BorderRadius.all(Radius.circular(12)),
                             ),
-                            child: Center(
+
                               child: RaisedButton(
                                   color: Colors.indigo[900],
                                   child: Text('Watch Video ', style: TextStyle(
@@ -412,11 +400,11 @@ class _screenState extends State<screen> {
 
                               ),
 
-                            ),
+
                           ),
 
                           SizedBox(
-                            width: 55,
+                            width: 65,
                           ),
                           Container(
                             decoration: BoxDecoration(
@@ -424,8 +412,8 @@ class _screenState extends State<screen> {
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                                 colors: [
-                                  Colors.indigo[900],
-                                  Colors.indigoAccent
+                                  btnforGroundColr
+                                  ,Colors.deepPurple
                                 ],
                               ),
                               borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -463,7 +451,7 @@ class _screenState extends State<screen> {
                         ),
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      child: Center(
+
                         child: RaisedButton(
                             color: Colors.indigo[900],
                             child: Text('get Coins ', style: TextStyle(
@@ -472,7 +460,6 @@ class _screenState extends State<screen> {
                                 fontWeight: FontWeight.w900),)
 
                             , onPressed: () {
-
 
                           videoAd.load(
                               adUnitId:RewardedVideoAd.testAdUnitId
@@ -493,7 +480,7 @@ class _screenState extends State<screen> {
 
                         ),
 
-                      ),
+
                     ),
                     SizedBox(
                       height:12,
@@ -501,38 +488,480 @@ class _screenState extends State<screen> {
 
 
 
-                    Container(
-                        color: Colors.orange,
-                        width: 400,
-                        height: 60,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
                     ),
 
                     SizedBox(
                       height: 15,
                     ),
-                    Container(
-                        width: 400,
-                        height: 60,
-                        color: Colors.green,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 15,
                     ),
                     Container(
-        width: 400,
-        height: 60,
+                        width: 400,
+                        height: 60,
                         color: Colors.blue,
                         child: NativeAdmob(
                           adUnitID: AdsManger.nativeAdunit,
@@ -544,87 +973,69 @@ class _screenState extends State<screen> {
                     SizedBox(
                       height: 15,
                     ),
-                    Container(
-        width: 400,
-        height: 60,
-                        color: Colors.pinkAccent,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                    width: 400,
-                    height: 60,
-                        color: Colors.cyan,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
 
-                    Container(
-                        color: Colors.orange,
-                        width: 400,
-                        height: 60,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                    width: 400,
-                    height: 60,
-                        color: Colors.green,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                        width: 400,
-                        height: 60,
-                        color: Colors.blue,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                        width: 400,
-                        height: 60,
-                        color: Colors.pinkAccent,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 15,
@@ -643,44 +1054,203 @@ class _screenState extends State<screen> {
                     SizedBox(
                       height: 15,
                     ),
-                    Container(
-                        width: 400,
-                        height: 60,
-                        color: Colors.deepPurple,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 15,
                     ),
-                    Container(
-                        width: 400,
-                        height: 60,
-                        color: Colors.tealAccent,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 15,
                     ),
-                    Container(
-                        width: 400,
-                        height: 60,
-                        color: Colors.indigoAccent,
-                        child: NativeAdmob(
-                          adUnitID: AdsManger.nativeAdunit,
-                          numberAds: 3,
-                          controller: _nativeAd,
-                          type: NativeAdmobType.banner,
-                        )
+                    Row(
+                      children: [
+                        Container(
+                          width:110,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.red,
+                                Colors.pink,
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Center(
+                            child: RaisedButton(
+                                color: Colors.indigo[900],
+                                child: Text('Watch Video ', style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900),)
+
+                                , onPressed: () {
+
+
+                              videoAd.load(
+                                  adUnitId:RewardedVideoAd.testAdUnitId
+                              );
+
+                              updataData();
+                              videoAd.show();
+                              RewardedVideoAd.instance.listener =
+                                  (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+                                if (event == RewardedVideoAdEvent.rewarded) {
+                                  coins=coins+rewardAmount;
+
+                                }
+                                saveData(coins);
+
+                              };
+                            }
+
+                            ),
+
+                          ),
+                        ),
+
+                        SizedBox(
+                          width:3,
+                        ),
+                        Container(
+                            color: Colors.orange,
+                            width: 200,
+                            height: 60,
+                            child: NativeAdmob(
+                              adUnitID: AdsManger.nativeAdunit,
+                              numberAds: 3,
+                              controller: _nativeAd,
+                              type: NativeAdmobType.banner,
+                            )
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 15,
