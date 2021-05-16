@@ -60,11 +60,11 @@ class _screenState extends State<screen2> {
 
     super.initState();
     getData();
-    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+    FirebaseAdMob.instance.initialize(appId:'ca-app-pub-9553580055895935~1610407402');
 
 
     RewardedVideoAd.instance.load(
-        adUnitId: RewardedVideoAd.testAdUnitId,
+        adUnitId:"ca-app-pub-9553580055895935/1690226045",
         targetingInfo: MobileAdTargetingInfo());
 
     RewardedVideoAd.instance.listener =
@@ -78,12 +78,12 @@ class _screenState extends State<screen2> {
 
     bannerSize = AdmobBannerSize.BANNER;
 
-    intersitialAd = AdmobInterstitial(
+    /*intersitialAd = AdmobInterstitial(
         adUnitId: AdmobInterstitial.testAdUnitId,
         listener: (AdmobAdEvent event, Map<String, dynamic> args) {
           if (event == AdmobAdEvent.closed) intersitialAd.load();
           //  handleEvent(event, args, 'Interstitial');
-        });
+        });*/
     _nativeAd.reloadAd(forceRefresh: true);
     intersitialAd.load();
   }
