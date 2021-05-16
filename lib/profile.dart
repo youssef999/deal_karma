@@ -18,6 +18,7 @@ import 'login.dart';
 class profile extends StatefulWidget {
 
   final String ud;
+
   profile(this.ud);
 
   @override
@@ -189,38 +190,38 @@ class _PostsScreenState extends State<profile> {
       //drawer: SidebarPage(),
 
       body:
-      Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              btnforGroundColr,
-              btnbackGroundColr
-            ],
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(25)),
-        ),
-            //.fromRGBO(41, 30, 83, 1),
-        child: Column(
-            children: [
-              /* Container(
-                  width:200,
-                  height:60,
-                  child:NativeAdmob(
-                    adUnitID:AdsManger.nativeAdunit,
-                    numberAds:3,
-                    controller: _nativeAd,
-                    type:NativeAdmobType.banner,
-                  )
-              ),
-*/
-              SizedBox(
-                height:7,
-              ),
-              Flexible(
+//       Container(
+//         decoration: BoxDecoration(
+//           gradient: LinearGradient(
+//             begin: Alignment.topCenter,
+//             end: Alignment.bottomCenter,
+//             colors: [
+//               btnforGroundColr,
+//               btnbackGroundColr
+//             ],
+//           ),
+//           borderRadius: BorderRadius.all(Radius.circular(25)),
+//         ),
+//             //.fromRGBO(41, 30, 83, 1),
+//         child: Column(
+//             children: [
+//               /* Container(
+//                   width:200,
+//                   height:60,
+//                   child:NativeAdmob(
+//                     adUnitID:AdsManger.nativeAdunit,
+//                     numberAds:3,
+//                     controller: _nativeAd,
+//                     type:NativeAdmobType.banner,
+//                   )
+//               ),
+// */
+//               SizedBox(
+//                 height:7,
+//               ),
+
                 //child: Expanded(
-                child: StreamBuilder(
+               StreamBuilder(
 
                     stream:
                     FirebaseFirestore.instance.collection('users')
@@ -238,14 +239,18 @@ class _PostsScreenState extends State<profile> {
                           return new Text('Loading...');
 //.where("category", isEqualTo:"tec")
                         default:
-                          return ListView.builder(
+                         return Container(
+                              color: Color(0xFF6F35A5),
+                              child:
+                      ListView.builder(
                               itemCount: snapshot.data.documents.length,
                               itemBuilder: (context, index) {
                                 DocumentSnapshot posts = snapshot.data.documents[index];
                                 int len=snapshot.data.documents.length;
+                                if(snapshot.data == null) return CircularProgressIndicator();
                                 // (profile.imgUrl == null) ? AssetImage('images/user-avatar.png') : NetworkImage(profile.imgUrl)
-                                return Flexible(
-                                  child: Container(
+                                return
+                                   Container(
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
                                         begin: Alignment.topCenter,
@@ -463,13 +468,13 @@ class _PostsScreenState extends State<profile> {
 
                                       ],
                                     ),
-                                  ),
-                                );
-                              });
+                                  );
+
+                              }));
                       }
                     }
                 ),
-              ),
+
               //),
 
               // Container(
@@ -512,12 +517,12 @@ class _PostsScreenState extends State<profile> {
               //   ),
               // )
 
-            ]),
-      ),
+
+      );
 
 
 
-    );
+    //);
 
   }
 

@@ -39,10 +39,7 @@ class _screenState extends State<screen2> {
   int coins=0;
   SharedPreferences prefs ;
   bool press=false;
-  final Future<dynamic> _calculation = Future<dynamic>.delayed(
-    const Duration(seconds: 2),
-        () => 'Data Loaded',
-  );
+
 
   saveData(int coin) async {
     prefs = await SharedPreferences.getInstance();
@@ -52,7 +49,7 @@ class _screenState extends State<screen2> {
   getData()async{
     prefs = await SharedPreferences.getInstance();
     setState(() {
-      coins =prefs.getInt('coin2');
+      coins =prefs.getInt('coin2')??coins;
     });
 
   }
@@ -99,7 +96,7 @@ class _screenState extends State<screen2> {
     userRef.
     doc(userData.documentID).
     update({
-      "coins":coins.toString(),
+      "coins":coins.toString() ?? null,
     });
   }
 
@@ -182,9 +179,11 @@ class _screenState extends State<screen2> {
                                 itemCount: snapshot.data.documents.length,
                                 itemBuilder: (context, index) {
                                   DocumentSnapshot posts = snapshot.data
-                                      .documents[index];
+                                      .documents[index] ;
                                   int len = snapshot.data.documents.length;
-                                  return Flexible(
+                                  if(snapshot.data == null) return CircularProgressIndicator();
+
+                                  return Container(
                                       child: Column(
                                           children: <Widget>[
                                             SizedBox(
@@ -516,7 +515,7 @@ class _screenState extends State<screen2> {
                                                           .testAdUnitId
                                                   );
 
-                                                  updataData();
+
                                                   videoAd.show();
                                                   RewardedVideoAd.instance
                                                       .listener =
@@ -530,6 +529,7 @@ class _screenState extends State<screen2> {
                                                           coins + rewardAmount;
                                                     }
                                                     saveData(coins);
+                                                    updataData();
                                                   };
                                                 }
 
@@ -544,68 +544,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -619,61 +565,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -685,68 +577,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -760,61 +598,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -825,68 +609,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -900,61 +630,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -965,68 +641,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -1040,61 +662,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -1105,68 +673,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -1180,61 +694,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -1245,68 +705,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -1320,61 +726,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -1385,68 +737,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -1460,61 +758,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -1525,68 +769,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -1600,61 +790,69 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
 
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
 
-                                                    ),
+                                            Row(
+                                              children: [
 
-                                                  ),
+
+                                                SizedBox(
+                                                  width: 5,
                                                 ),
+                                                Container(
+                                                    color: Colors.orange,
+                                                    width: 350,
+                                                    height: 60,
+                                                    child: NativeAdmob(
+                                                      adUnitID: AdsManger
+                                                          .nativeAdunit,
+                                                      numberAds: 3,
+                                                      controller: _nativeAd,
+                                                      type: NativeAdmobType
+                                                          .banner,
+                                                    )
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+
+
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 12,
+                                            ),
+
+                                            Row(
+                                              children: [
+
+
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Container(
+                                                    color: Colors.orange,
+                                                    width: 350,
+                                                    height: 60,
+                                                    child: NativeAdmob(
+                                                      adUnitID: AdsManger
+                                                          .nativeAdunit,
+                                                      numberAds: 3,
+                                                      controller: _nativeAd,
+                                                      type: NativeAdmobType
+                                                          .banner,
+                                                    )
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+
 
                                               ],
                                             ),
@@ -1665,68 +863,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -1740,61 +884,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -1805,68 +895,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -1880,61 +916,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -1945,68 +927,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -2020,61 +948,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -2085,68 +959,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -2160,61 +980,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),
@@ -2225,68 +991,14 @@ class _screenState extends State<screen2> {
 
                                             Row(
                                               children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Container(
                                                     color: Colors.orange,
-                                                    width: 150,
+                                                    width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(
                                                       adUnitID: AdsManger
@@ -2300,341 +1012,7 @@ class _screenState extends State<screen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
 
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
-
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 12,
-                                            ),
-
-
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
-
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
-
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Container(
-                                                    color: Colors.orange,
-                                                    width: 150,
-                                                    height: 60,
-                                                    child: NativeAdmob(
-                                                      adUnitID: AdsManger
-                                                          .nativeAdunit,
-                                                      numberAds: 3,
-                                                      controller: _nativeAd,
-                                                      type: NativeAdmobType
-                                                          .banner,
-                                                    )
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
-
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
-
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 12,
-                                            ),
-
-
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors.red,
-                                                        child: Text('Like',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
-
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
-
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Container(
-                                                    color: Colors.orange,
-                                                    width: 150,
-                                                    height: 60,
-                                                    child: NativeAdmob(
-                                                      adUnitID: AdsManger
-                                                          .nativeAdunit,
-                                                      numberAds: 3,
-                                                      controller: _nativeAd,
-                                                      type: NativeAdmobType
-                                                          .banner,
-                                                    )
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
-                                                      begin: Alignment
-                                                          .topCenter,
-                                                      end: Alignment
-                                                          .bottomCenter,
-                                                      colors: [
-                                                        Colors.black87,
-                                                        Colors.black87,
-                                                      ],
-                                                    ),
-                                                    borderRadius: BorderRadius
-                                                        .all(
-                                                        Radius.circular(12)),
-                                                  ),
-                                                  child: Center(
-                                                    child: RaisedButton(
-                                                        color: Colors
-                                                            .indigo[900],
-                                                        child: Text('dislike ',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 17,
-                                                              fontWeight: FontWeight
-                                                                  .w900),)
-
-                                                        , onPressed: () {
-                                                      videoAd.load(
-                                                          adUnitId: RewardedVideoAd
-                                                              .testAdUnitId
-                                                      );
-
-                                                      updataData();
-                                                      videoAd.show();
-                                                      RewardedVideoAd.instance
-                                                          .listener =
-                                                          (
-                                                          RewardedVideoAdEvent event,
-                                                          {String rewardType, int rewardAmount}) {
-                                                        if (event ==
-                                                            RewardedVideoAdEvent
-                                                                .rewarded) {
-                                                          coins = coins +
-                                                              rewardAmount;
-                                                        }
-                                                        saveData(coins);
-                                                      };
-                                                    }
-
-                                                    ),
-
-                                                  ),
-                                                ),
 
                                               ],
                                             ),

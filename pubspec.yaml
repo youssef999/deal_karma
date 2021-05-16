@@ -38,6 +38,7 @@ dependencies:
   firebase_analytics: ^6.3.0
   image_picker: ^0.6.7+17
   path: ^1.7.0
+  animated_text_kit: ^4.2.1
   shared_preferences: ^0.5.12+4
   carousel_pro: ^1.0.0
  
@@ -61,6 +62,7 @@ flutter:
     - assets/se1.png
     - assets/signup.png
     - assets/v3.png
+    - assets/coins.jfif
     - assets/sw3.jpeg
     - assets/money.png
     - assets/t1.png
