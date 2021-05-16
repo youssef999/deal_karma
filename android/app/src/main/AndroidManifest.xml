@@ -8,8 +8,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="fire99"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Dealkarma"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -46,6 +46,6 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8832245228844811~9613708860" />
+            android:value="ca-app-pub-9553580055895935~1610407402" />
     </application>
 </manifest>

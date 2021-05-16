@@ -1,10 +1,8 @@
 
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fire99/adsManger.dart';
 import 'package:fire99/colorr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_admob/flutter_native_admob.dart';
@@ -519,11 +517,6 @@ class _PostsScreenState extends State<profile> {
 
 
       );
-
-
-
-    //);
-
   }
 
 }

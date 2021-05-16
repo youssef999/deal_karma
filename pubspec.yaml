@@ -45,6 +45,18 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.8.1"
+  flutter_launcher_name: "^0.0.1"
+
+flutter_launcher_name:
+    name: "Dealkarma"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/d1.jfif"
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -63,6 +75,7 @@ flutter:
     - assets/signup.png
     - assets/v3.png
     - assets/coins.jfif
+    - assets/d1.jfif
     - assets/sw3.jpeg
     - assets/money.png
     - assets/t1.png

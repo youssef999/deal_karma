@@ -7,14 +7,14 @@ import 'package:admob_flutter/admob_flutter.dart';
 
 class AdsManger{
 
-   static bool _testmode= true;
+   static bool _testmode= false;
 
 
 
 
    static String get appIdEx{
      if(Platform.isAndroid){
-       return "ca-app-pub-8832245228844811~9613708860";
+       return "ca-app-pub-9553580055895935~1610407402";
      }
      else if(Platform.isIOS){
        return"....";
@@ -53,7 +53,7 @@ class AdsManger{
          //NativeAdmob.testAdUnitId;
      }
      else  if(Platform.isAndroid){
-       return "ca-app-pub-8832245228844811/4333462023";
+       return "ca-app-pub-9553580055895935/2620164334";
      }
      else if(Platform.isIOS){
        return"....";

@@ -10,16 +10,12 @@ class RegisterScreen2 extends StatefulWidget{
 }
 
 class _RegisterScreen2State extends State<RegisterScreen2> {
-
   String valuechoose;
-
-
 
   void initState()
   {
     super.initState();
     setState(() {
-
     });
   }
 
@@ -101,8 +97,8 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
           key: _formkey,
           child: ListView(
             children: <Widget>[
-             SizedBox(
-                height:5
+              SizedBox(
+                  height:5
               ),
               Row(
                   children:<Widget>[
@@ -119,7 +115,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                             bottomRight: Radius.circular(50),
                           )
                       ),
-                      child:Center(child: Text('Sign up',style:TextStyle(color:Colors.purple,fontSize:25,fontWeight:FontWeight.w900),)),
+                      child:Center(child: Text('Sign up',style:TextStyle(color:Colors.deepPurple,fontSize:25,fontWeight:FontWeight.w900),)),
                     ),
                   ]
               ),
@@ -127,16 +123,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                 width:400,
                 height:190,
                 color:Colors.lightBlueAccent[300],
-                /* decoration: BoxDecoration(
-                   color:Colors.white,
-                   // color:Colors.lightBlueAccent,
-                   borderRadius: BorderRadius.only(
-                     bottomLeft: Radius.circular(50),
-                     topLeft:Radius.circular(30),
-                     topRight:Radius.circular(30),
-                     bottomRight: Radius.circular(50),
-                   )
-               ),*/
+
                 child:Image.asset('assets/signup.png'),
               ),
               SizedBox(
@@ -174,26 +161,16 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                       decoration: InputDecoration(
                         border:OutlineInputBorder(
                           borderSide: const BorderSide(
-                              color: Colors.purpleAccent,
+                              color: Colors.deepPurple,
                               width: 2.0),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         //fillColor:Colors.white,
                         filled: true,
                         hintText: "Your Name",hintStyle:TextStyle(color:Colors.black45,),
-                        prefixIcon: Icon(Icons.person,color:Colors.purple),
+                        prefixIcon: Icon(Icons.person,color:Colors.deepPurple),
                       ),
-                      // decoration: InputDecoration(
-                      //   prefixIcon: Icon(Icons.person),
-                      //
-                      //   labelText: " Name ",
-                      //   enabledBorder: OutlineInputBorder
-                      //     (borderSide: BorderSide(color: Colors.red)),
-                      //   border:OutlineInputBorder(
-                      //     borderSide: const BorderSide(color: Colors.white,),
-                      //     borderRadius: BorderRadius.circular(16.0),
-                      //   ),
-                      // ),
+
                       validator: (value){
                         if(value.isEmpty){
                           return 'Fill Name';
@@ -214,24 +191,16 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                       decoration: InputDecoration(
                         border:OutlineInputBorder(
                           borderSide: const BorderSide(
-                              color: Colors.purpleAccent,
+                              color: Colors.deepPurple,
                               width: 2.0),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         //fillColor:Colors.white,
                         filled: true,
                         hintText: "Your Email",hintStyle:TextStyle(color:Colors.black45,),
-                        prefixIcon: Icon(Icons.email,color:Colors.purple),
+                        prefixIcon: Icon(Icons.email,color:Colors.deepPurple),
                       ),
-                      /*decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email),
-                        labelText:  "  Email  ",
-                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                        border:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                      ),*/
+
                       validator: (value){
                         if(value.isEmpty){
                           return 'Fill Email ';
@@ -246,25 +215,16 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                       decoration: InputDecoration(
                         border:OutlineInputBorder(
                           borderSide: const BorderSide(
-                              color: Colors.purpleAccent,
+                              color: Colors.deepPurple,
                               width: 2.0),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         //fillColor:Colors.white,
                         filled: true,
                         hintText: "Password",hintStyle:TextStyle(color:Colors.black45,),
-                        prefixIcon: Icon(Icons.person,color:Colors.purple),
+                        prefixIcon: Icon(Icons.person,color:Colors.deepPurple),
                       ),
-                     /* decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.lock),
-                        labelText: "  Password ",
-                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                        border:OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white, width: 2.0),
-                          borderRadius: BorderRadius.circular(25.0),
 
-                        ),
-                      ),*/
                       validator: (value){
                         if(value.isEmpty){
                           return 'Fill Password';
@@ -274,45 +234,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                     SizedBox(
                       height: 5,
                     ),
-          /*          Container(
-                      padding: EdgeInsets.only(left:25,right:25),
-                      decoration:BoxDecoration(border: Border.all(color: Colors.red,width:1)
-                          ,borderRadius: BorderRadius.circular(25)),
-                      child:   DropdownButton(
 
-                        hint: Text(_language.tchose()??"Choose"),
-
-                        icon: Icon(Icons.arrow_drop_down),
-
-                        iconSize: 36,
-
-                        isExpanded: true,
-                        underline: SizedBox(),
-
-                        value: valuechoose,
-                        onChanged:(newvalue)
-                        {
-                          setState(() {
-                            valuechoose=newvalue;
-                          });
-
-                        },
-
-                        items: listitem.map((valueitem){
-
-                          return DropdownMenuItem(value: valueitem,
-
-                            child: Center(child: Text(valueitem)),
-
-
-                          );
-
-                        }).toList(),
-
-
-                      ),
-
-                    ),*/
 
 
                     Container(
@@ -382,5 +304,4 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
 
       ),
     );
-  }
-}
+  }}
