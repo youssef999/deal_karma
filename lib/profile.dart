@@ -351,7 +351,7 @@ class _PostsScreenState extends State<profile> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Your Profile',
+                                                      'Convert your coins for sell service',
                                                       style:TextStyle(color:Colors.white,fontSize:17,fontWeight:FontWeight.w900),
                                                     ),
                                                     SizedBox(

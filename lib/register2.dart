@@ -1,8 +1,12 @@
 import 'dart:io';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'login.dart';
+import 'terms.dart';
 
 class RegisterScreen2 extends StatefulWidget{
   @override
@@ -11,7 +15,7 @@ class RegisterScreen2 extends StatefulWidget{
 
 class _RegisterScreen2State extends State<RegisterScreen2> {
   String valuechoose;
-
+   bool x=false;
   void initState()
   {
     super.initState();
@@ -28,20 +32,21 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
 
   TextEditingController _passwordcontroller = TextEditingController();
 
-  TextEditingController _countrycontroller = TextEditingController();
+  TextEditingController _adresscontroller = TextEditingController();
 
-  TextEditingController _phonenumber = TextEditingController();
+  TextEditingController _jobcontroller = TextEditingController();
 
   TextEditingController _dateofbirth = TextEditingController();
 
   TextEditingController _gender = TextEditingController();
+  bool checkBoxValue =false;
   File _userImageFile;
 
   void _pickedImage(File pickedImage){
     _userImageFile=pickedImage;
   }
 
-  @override
+ /* @override
   void dispose()
   {
     _namecontroller.dispose();
@@ -50,16 +55,16 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
 
     _passwordcontroller.dispose();
 
-    _countrycontroller.dispose();
+    _adresscontroller.dispose();
 
-    _phonenumber.dispose();
+    _jobcontroller.dispose();
 
     _dateofbirth.dispose();
 
     _gender.dispose();
 
     super.dispose();
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
 
@@ -143,7 +148,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                     )
                 ),
                 width:600,
-                height:370,
+                height:680,
                 child: Column(
                   children:<Widget> [
 
@@ -222,7 +227,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                         //fillColor:Colors.white,
                         filled: true,
                         hintText: "Password",hintStyle:TextStyle(color:Colors.black45,),
-                        prefixIcon: Icon(Icons.person,color:Colors.deepPurple),
+                        prefixIcon: Icon(Icons.lock,color:Colors.deepPurple),
                       ),
 
                       validator: (value){
@@ -232,7 +237,127 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                       },
                     ),
                     SizedBox(
-                      height: 5,
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _adresscontroller,
+                      autocorrect:true,
+                      decoration: InputDecoration(
+                        border:OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Colors.deepPurple,
+                              width: 2.0),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        //fillColor:Colors.white,
+                        filled: true,
+                        hintText: "Your Socail Adress",hintStyle:TextStyle(color:Colors.black45,),
+                        prefixIcon: Icon(Icons.home,color:Colors.deepPurple),
+                      ),
+
+                      validator: (value){
+                        if(value.isEmpty){
+                          return 'Fill Adress';
+                        }
+                        // return 'Valid Name';
+                      },
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _jobcontroller,
+                      autocorrect:true,
+                      decoration: InputDecoration(
+                        border:OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Colors.deepPurple,
+                              width: 2.0),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        //fillColor:Colors.white,
+                        filled: true,
+                        hintText: "Your Job",hintStyle:TextStyle(color:Colors.black45,),
+                        prefixIcon: Icon(Icons.amp_stories,color:Colors.deepPurple),
+                      ),
+
+                      validator: (value){
+                        if(value.isEmpty){
+                          return 'Fill Your Job';
+                        }
+                        // return 'Valid Name';
+                      },
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _dateofbirth,
+                      autocorrect:true,
+                        keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border:OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Colors.deepPurple,
+                              width: 2.0),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        //fillColor:Colors.white,
+                        filled: true,
+                        hintText: "Your Date of Birth",hintStyle:TextStyle(color:Colors.black45,),
+                        prefixIcon: Icon(Icons.date_range,color:Colors.deepPurple),
+                      ),
+
+                      validator: (value){
+                        if(value.isEmpty){
+                          return 'Fill Your Date Of Birth';
+                        }
+                        // return 'Valid Name';
+                      },
+                    ),
+                    SizedBox(
+                      height:10
+                    ),
+                    RaisedButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(29)),
+                        color: Colors.deepPurpleAccent,
+                        child:Text('Terms and Conditions',style:TextStyle(color:Colors.white,fontSize:17,fontWeight:FontWeight.w900),),
+                        onPressed:(){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return terms(_namecontroller.text);
+                              }));
+                        }),
+                    SizedBox(
+                        height:10
+                    ),
+                    Row(
+                      children: [
+
+
+                        Text('Accept terms and Conditions'),
+
+                        new Checkbox(value: checkBoxValue,
+                            activeColor: Colors.green,
+                            onChanged:(bool newValue){
+                              setState(() {
+                                checkBoxValue = newValue;
+                                x=true;
+                              });
+                              validator: (value){
+                                if(value.isEmpty){
+                                  return 'you must accept terms to submit';
+                                }
+                                // return 'Valid Name';
+                              };
+                              Text('Accept terms and Conditions');
+                            }),
+                        SizedBox(
+                            width:2
+                        ),
+
+                      ],
                     ),
 
 
@@ -244,14 +369,38 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                         color: Colors.deepPurpleAccent,
                         child: Text( " Submit ",style: TextStyle(color: Colors.white,fontSize:21),),
                         onPressed: () async{
-                          if(_formkey.currentState.validate()){
+                          if(x==false){
+                            showDialog(
+                                context: context,
+                                builder: (_) => new AlertDialog(
+                                  title: new Text(" Wrong "),
+                                  content: new Text("you must accept terms and conditions "),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text('Close me!'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                ));
+                            Flushbar(
+                                backgroundColor:Colors.black,
+                                icon:Icon(Icons.android,color:Colors.green),
+                                messageText:Text("You Must Accept Terms and Conditions",style:TextStyle(color:Colors.red))
+                            );
+                          }
+                          if(_formkey.currentState.validate()&& x==true){
                             var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailcontroller.text, password: _passwordcontroller.text);
-                            if(result != null)
+                            if(result != null )
                             {
                               Firestore.instance.collection('users').document(result.user.uid).setData({
                                 'username':_namecontroller.text,
                                 'email':_emailcontroller.text,
-                                'coins':"0",
+                                'social adress':_adresscontroller.text,
+                                 'job':_jobcontroller.text,
+                                 'date of birth':_dateofbirth.text,
+                                 'coins':"0",
 
                               });
                               showDialog(

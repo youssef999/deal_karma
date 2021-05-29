@@ -10,8 +10,6 @@ class AdsManger{
    static bool _testmode= false;
 
 
-
-
    static String get appIdEx{
      if(Platform.isAndroid){
        return "ca-app-pub-9553580055895935~1610407402";
@@ -56,7 +54,7 @@ class AdsManger{
        return "ca-app-pub-9553580055895935/2620164334";
      }
      else if(Platform.isIOS){
-       return"....";
+       return"ca-app-pub-9553580055895935/2620164334";
      }
      else
      {

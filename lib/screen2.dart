@@ -64,7 +64,9 @@ class _screenState extends State<screen2> {
 
 
     RewardedVideoAd.instance.load(
-        adUnitId:"ca-app-pub-9553580055895935/1690226045",
+        adUnitId:
+        //AdmobReward.testAdUnitId,
+       "ca-app-pub-9553580055895935/1690226045",
         targetingInfo: MobileAdTargetingInfo());
 
     RewardedVideoAd.instance.listener =
@@ -78,12 +80,12 @@ class _screenState extends State<screen2> {
 
     bannerSize = AdmobBannerSize.BANNER;
 
-    /*intersitialAd = AdmobInterstitial(
+    intersitialAd = AdmobInterstitial(
         adUnitId: AdmobInterstitial.testAdUnitId,
         listener: (AdmobAdEvent event, Map<String, dynamic> args) {
           if (event == AdmobAdEvent.closed) intersitialAd.load();
           //  handleEvent(event, args, 'Interstitial');
-        });*/
+        });
     _nativeAd.reloadAd(forceRefresh: true);
     intersitialAd.load();
   }
@@ -96,7 +98,7 @@ class _screenState extends State<screen2> {
     userRef.
     doc(userData.documentID).
     update({
-      "coins":coins.toString() ?? null,
+      "coins":coins.toString() ,
     });
   }
 
@@ -240,7 +242,7 @@ class _screenState extends State<screen2> {
                                                             height: 3
                                                         ),
                                                         Text(
-                                                          "The More You Watch The More You Earn!",
+                                                          "The More You Watch The More You get!",
                                                           style: TextStyle(
                                                               color: Colors
                                                                   .white,
@@ -415,8 +417,9 @@ class _screenState extends State<screen2> {
 
                                                           , onPressed: () {
                                                         videoAd.load(
-                                                            adUnitId: RewardedVideoAd
-                                                                .testAdUnitId
+                                                          adUnitId:
+                                                          //AdmobReward.testAdUnitId,
+                                                          "ca-app-pub-9553580055895935/1690226045",
                                                         );
 
                                                         updataData();
@@ -511,8 +514,9 @@ class _screenState extends State<screen2> {
 
                                                     , onPressed: () {
                                                   videoAd.load(
-                                                      adUnitId: RewardedVideoAd
-                                                          .testAdUnitId
+                                                    adUnitId:
+                                                    //AdmobReward.testAdUnitId,
+                                                    "ca-app-pub-9553580055895935/1690226045",
                                                   );
 
 
@@ -711,7 +715,7 @@ class _screenState extends State<screen2> {
                                                   width: 5,
                                                 ),
                                                 Container(
-                                                    color: Colors.orange,
+                                                    color: Colors.blue[600],
                                                     width: 350,
                                                     height: 60,
                                                     child: NativeAdmob(

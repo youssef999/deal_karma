@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   child: AnimatedTextKit(
                     animatedTexts: [
-                      WavyAnimatedText('Watch And Earn!'),
+                      WavyAnimatedText('View ads and pay your bill '),
                     ],
                     isRepeatingAnimation: true,
 
