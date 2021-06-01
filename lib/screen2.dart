@@ -61,7 +61,7 @@ class _screenState extends State<screen2> {
     super.initState();
     getData();
     FirebaseAdMob.instance.initialize(appId:'ca-app-pub-9553580055895935~1610407402');
-
+    updataData();
 
     RewardedVideoAd.instance.load(
         adUnitId:
@@ -416,6 +416,7 @@ class _screenState extends State<screen2> {
                                                                     .bold),)
 
                                                           , onPressed: () {
+                                                        saveData(coins);
                                                         videoAd.load(
                                                           adUnitId:
                                                           //AdmobReward.testAdUnitId,
@@ -432,8 +433,12 @@ class _screenState extends State<screen2> {
                                                           if (event ==
                                                               RewardedVideoAdEvent
                                                                   .rewarded) {
-                                                            coins = coins +
-                                                                rewardAmount;
+                                                            setState(() {
+                                                              coins = coins +
+                                                                  rewardAmount;
+                                                              saveData(coins);
+                                                            });
+
                                                           }
                                                           saveData(coins);
                                                         };
@@ -467,8 +472,8 @@ class _screenState extends State<screen2> {
                                                     height: 70,
 
                                                     child: Center(child: Text(
-                                                      "Coins = " +
-                                                          posts.data()['coins'],
+                                                      "Coins = " + coins.toString(),
+                                                         // posts.data()['coins'],
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 17,
@@ -487,7 +492,7 @@ class _screenState extends State<screen2> {
                                             SizedBox(
                                               height: 12,
                                             ),
-                                            Container(
+                             /*              Container(
                                               width: 110,
                                               decoration: BoxDecoration(
                                                 gradient: LinearGradient(
@@ -505,7 +510,7 @@ class _screenState extends State<screen2> {
                                                 child: FlatButton(
                                                     disabledColor: Colors
                                                         .transparent,
-                                                    child: Text('get Coins ',
+                                                    child: Text(' make alarm notification ',
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 17,
@@ -513,34 +518,19 @@ class _screenState extends State<screen2> {
                                                               .w900),)
 
                                                     , onPressed: () {
-                                                  videoAd.load(
-                                                    adUnitId:
-                                                    //AdmobReward.testAdUnitId,
-                                                    "ca-app-pub-9553580055895935/1690226045",
-                                                  );
+    Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) {
+    return  MyApp2();
+    }));
 
+                                                  }
 
-                                                  videoAd.show();
-                                                  RewardedVideoAd.instance
-                                                      .listener =
-                                                      (
-                                                      RewardedVideoAdEvent event,
-                                                      {String rewardType, int rewardAmount}) {
-                                                    if (event ==
-                                                        RewardedVideoAdEvent
-                                                            .rewarded) {
-                                                      coins =
-                                                          coins + rewardAmount;
-                                                    }
-                                                    saveData(coins);
-                                                    updataData();
-                                                  };
-                                                }
 
                                                 ),
 
                                               ),
-                                            ),
+                                            ),*/
                                             SizedBox(
                                               height: 12,
                                             ),

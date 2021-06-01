@@ -1,5 +1,6 @@
 
 import 'package:admob_flutter/admob_flutter.dart';
+import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire99/colorr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,7 +40,8 @@ class _PostsScreenState extends State<profile> {
   AdmobInterstitial intersitialAd;
 
   @override
-  void initState() {
+  Future<void> initState() async {
+
     setState(() {
 
     });
@@ -277,9 +279,24 @@ class _PostsScreenState extends State<profile> {
                                             Icon(Icons.ac_unit_rounded,color:Colors.cyanAccent,),
                                           ],
                                         ),
-                                        SizedBox(
+                                       /* SizedBox(
                                             height:20
                                         ),
+
+                                        Container(
+                                          child:RaisedButton(
+                                            onPressed:(){
+                                              AndroidAlarmManager.oneShot(Duration(seconds:3), 0,(){
+
+                                              });
+                                            },
+                                          )
+                                        ),*/
+
+
+
+
+
 
                                         Row(
                                           children: [
@@ -351,7 +368,14 @@ class _PostsScreenState extends State<profile> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Convert your coins for sell service',
+                                                      'Convert your coins for ',
+                                                      style:TextStyle(color:Colors.white,fontSize:17,fontWeight:FontWeight.w900),
+                                                    ),
+                                                    SizedBox(
+                                                        height:6
+                                                    ),
+                                                    Text(
+                                                      ' sell service',
                                                       style:TextStyle(color:Colors.white,fontSize:17,fontWeight:FontWeight.w900),
                                                     ),
                                                     SizedBox(

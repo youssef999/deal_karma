@@ -28,9 +28,12 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
+  provider:
+  intl:
   firebase_admob:
   another_flushbar: ^1.10.22
   firebase_core: ^0.5.2
+  android_alarm_manager: ^2.0.2
   flutter_native_admob: ^2.1.0+3
   admob_flutter: ^1.0.1
   firebase_auth: ^0.18.4+1
@@ -72,14 +75,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/se1.png
-    - assets/signup.png
-    - assets/v3.png
-    - assets/coins.jfif
-    - assets/d1.jfif
-    - assets/sw3.jpeg
-    - assets/money.png
-    - assets/t1.png
+    - assets/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

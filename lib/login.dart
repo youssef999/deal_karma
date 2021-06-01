@@ -191,7 +191,39 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
                 onPressed: () async {
-                  if (_formkey.currentState.validate()) {
+                  UserCredential userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: _emailcontroller.text,
+                      password: _passwordcontroller.text);
+
+                  if(userCredential.user.emailVerified==false){
+                    User user=FirebaseAuth.instance.currentUser;
+                    await user.sendEmailVerification();
+
+                  showDialog(
+                        context: context,
+                        builder: (_) =>
+                        new AlertDialog(
+                          title: new Text(" OPEN YOUR EMAIL "),
+                          content: new Text("We sent a message to your check it to verify your account"),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text(' OK '),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return LoginScreen();
+                                  }),
+                                );
+
+                              },
+                            )
+                          ],
+                        ));
+
+
+                  }
+                  if (_formkey.currentState.validate() && userCredential.user.emailVerified==true) {
                     WidgetsFlutterBinding.ensureInitialized();
                     await Firebase.initializeApp();
 

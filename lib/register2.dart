@@ -369,6 +369,13 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                         color: Colors.deepPurpleAccent,
                         child: Text( " Submit ",style: TextStyle(color: Colors.white,fontSize:21),),
                         onPressed: () async{
+                         /* UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();
+                          if(userCredential.user.emailVerified==false){
+                            User user=FirebaseAuth.instance.currentUser;
+                            await user.sendEmailVerification();
+
+                          }*/
+
                           if(x==false){
                             showDialog(
                                 context: context,
@@ -403,27 +410,7 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
                                  'coins':"0",
 
                               });
-                              showDialog(
-                                  context: context,
-                                  builder: (_) =>
-                                  new AlertDialog(
-                                    title: new Text(" Done "),
-                                    content: new Text("Now you have an account "),
-                                    actions: <Widget>[
-                                      FlatButton(
-                                        child: Text(' OK '),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) {
-                                              return LoginScreen();
-                                            }),
-                                          );
 
-                                        },
-                                      )
-                                    ],
-                                  ));
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {

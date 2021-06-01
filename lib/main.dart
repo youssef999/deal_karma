@@ -1,3 +1,4 @@
+import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +6,8 @@ import 'colorr.dart';
 import 'login.dart';
 
 
-void main() {
+Future<void> main()  {
+  //await AndroidAlarmManager.initialize();
   runApp(MyApp());
 }
 
